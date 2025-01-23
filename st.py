@@ -56,8 +56,8 @@ def process_text():
     with st.spinner("Processing and aligning subtitles..."): 
         step5_splitforsub.split_for_sub_main()
         step6_generate_final_timeline.align_timestamp_main()
-    with st.spinner("Merging subtitles to video..."):
-        step7_merge_sub_to_vid.merge_subtitles_to_video()
+    # with st.spinner("Merging subtitles to video..."):
+    #     step7_merge_sub_to_vid.merge_subtitles_to_video()
     
     st.success("Subtitle processing complete! 🎉")
     st.balloons()
@@ -99,8 +99,8 @@ def process_audio():
         step10_gen_audio.gen_audio()
     with st.spinner("Merge full audio"):
         step11_merge_full_audio.merge_full_audio()
-    with st.spinner("Merge dubbing to the video"):
-        step12_merge_dub_to_vid.merge_video_audio()
+    # with st.spinner("Merge dubbing to the video"):
+    #     step12_merge_dub_to_vid.merge_video_audio()
     
     st.success("Audio processing complete! 🎇")
     st.balloons()
