@@ -46,67 +46,59 @@ def check_ask_gpt_history(prompt, model, log_title):
 def ask_gpt(prompt, response_json=True, valid_def=None, log_title='default'):
     api_set = load_key("api")
     llm_support_json = load_key("llm_support_json")
+    max_retries = 3
+    
+    # 1. 检查历史记录
     with LOCK:
         history_response = check_ask_gpt_history(prompt, api_set["model"], log_title)
         if history_response:
             return history_response
-    
-    if not api_set["key"]:
-        raise ValueError(f"⚠️API_KEY is missing")
-    
-    messages = [{"role": "user", "content": prompt}]
-    
+            
+    # 2. 准备API请求
     base_url = api_set["base_url"].strip('/') + '/v1' if 'v1' not in api_set["base_url"] else api_set["base_url"]
     client = OpenAI(api_key=api_set["key"], base_url=base_url)
     response_format = {"type": "json_object"} if response_json and api_set["model"] in llm_support_json else None
-
-    max_retries = 3
+    
+    # 3. 重试循环
     for attempt in range(max_retries):
         try:
-            completion_args = {
-                "model": api_set["model"],
-                "messages": messages
-            }
-            if response_format is not None:
-                completion_args["response_format"] = response_format
-                
-            response = client.chat.completions.create(**completion_args)
+            # 发送请求
+            response = client.chat.completions.create(
+                model=api_set["model"],
+                messages=[{"role": "user", "content": prompt}],
+                response_format=response_format
+            )
             
+            # 处理响应
             if response_json:
                 try:
                     response_data = json_repair.loads(response.choices[0].message.content)
-                    
-                    # check if the response is valid, otherwise save the log and raise error and retry
                     if valid_def:
                         valid_response = valid_def(response_data)
                         if valid_response['status'] != 'success':
-                            save_log(api_set["model"], prompt, response_data, log_title="error", message=valid_response['message'])
-                            raise ValueError(f"❎ API response error: {valid_response['message']}")
-                        
-                    break  # Successfully accessed and parsed, break the loop
+                            # 保存错误日志但不重试
+                            save_log(api_set["model"], prompt, response_data, 
+                                   log_title="error", 
+                                   message=valid_response['message'])
+                            return None  # 返回None而不是重试
+                    break
                 except Exception as e:
-                    response_data = response.choices[0].message.content
-                    print(f"❎ json_repair parsing failed. Retrying: '''{response_data}'''")
-                    save_log(api_set["model"], prompt, response_data, log_title="error", message=f"json_repair parsing failed.")
                     if attempt == max_retries - 1:
-                        raise Exception(f"JSON parsing still failed after {max_retries} attempts: {e}\n Please check your network connection or API key or `output/gpt_log/error.json` to debug.")
+                        raise Exception(f"JSON parsing failed: {e}")
+                    continue
             else:
                 response_data = response.choices[0].message.content
-                break  # Non-JSON format, break the loop directly
+                break
                 
         except Exception as e:
-            if attempt < max_retries - 1:
-                if isinstance(e, RequestException):
-                    print(f"Request error: {e}. Retrying ({attempt + 1}/{max_retries})...")
-                else:
-                    print(f"Unexpected error occurred: {e}\nRetrying...")
-                time.sleep(2)
-            else:
-                raise Exception(f"Still failed after {max_retries} attempts: {e}")
-    with LOCK:
-        if log_title != 'None':
-            save_log(api_set["model"], prompt, response_data, log_title=log_title)
-
+            if attempt == max_retries - 1:
+                raise
+            time.sleep(2 * (attempt + 1))
+            
+    # 4. 保存日志
+    if log_title != 'None':
+        save_log(api_set["model"], prompt, response_data, log_title=log_title)
+        
     return response_data
 
 
