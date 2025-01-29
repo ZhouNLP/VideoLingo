@@ -13,9 +13,9 @@ FONT_NAME = 'Arial'
 TRANS_FONT_NAME = 'Arial'
 
 # Linux need to install google noto fonts: apt-get install fonts-noto
-if platform.system() == 'Linux':
-    FONT_NAME = 'NotoSansCJK-Regular'
-    TRANS_FONT_NAME = 'NotoSansCJK-Regular'
+# if platform.system() == 'Linux':
+#     FONT_NAME = 'NotoSansCJK-Regular'
+#     TRANS_FONT_NAME = 'NotoSansCJK-Regular'
 
 SRC_FONT_COLOR = '&HFFFFFF'
 SRC_OUTLINE_COLOR = '&H000000'
