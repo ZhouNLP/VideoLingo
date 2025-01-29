@@ -4,7 +4,7 @@ version: "2.1.2"
 # API settings
 api:
   key: 'YOUR_API_KEY'
-  base_url: 'https://dashscope.aliyuncs.com/compatible-mode/v1'
+  base_url: 'https://dashscope.aliyuncs.com/compatible-mode'
   model: 'qwen-max-latest'
 
 # Language settings, written into the prompt, can be described in natural language
