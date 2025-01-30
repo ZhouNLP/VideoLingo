@@ -1,6 +1,6 @@
 from pathlib import Path
-import dashscope
-from dashscope.audio.tts_v2 import VoiceEnrollmentService, SpeechSynthesizer
+# import dashscope
+# from dashscope.audio.tts_v2 import VoiceEnrollmentService, SpeechSynthesizer
 import os
 
 # 阿里云灵积模配置
