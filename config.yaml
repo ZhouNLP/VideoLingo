@@ -61,7 +61,7 @@ sf_fish_tts:
   custom_name: ''
   voice_id: ''
   # preset, custom, dynamic
-  mode: "custom"
+  mode: "dynamic"
 
 # OpenAI TTS-1 API configuration, 302.ai API only
 openai_tts:
