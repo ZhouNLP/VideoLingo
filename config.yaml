@@ -56,12 +56,12 @@ sf_fish_tts:
   # SiliconFlow API key
   api_key: 'YOUR_API_KEY'
   # only for mode "preset"
-  voice: 'anna'
+  voice: 'david'
   # *only for mode "custom", dont set manually
   custom_name: ''
   voice_id: ''
   # preset, custom, dynamic
-  mode: "dynamic"
+  mode: "preset"
 
 # OpenAI TTS-1 API configuration, 302.ai API only
 openai_tts:
