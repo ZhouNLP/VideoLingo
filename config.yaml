@@ -151,6 +151,7 @@ spacy_model_map:
   de: 'de_core_news_md'
   it: 'it_core_news_md'
   zh: 'zh_core_web_md'
+  vi: 'zh_core_web_md'
 
 # Languages that use space as separator
 language_split_with_space:
@@ -160,6 +161,7 @@ language_split_with_space:
 - 'de'
 - 'it'
 - 'ru'
+- 'vi'
 
 # Languages that do not use space as separator
 language_split_without_space:
