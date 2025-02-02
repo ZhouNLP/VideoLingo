@@ -48,7 +48,8 @@ def update_key(key: str, new_value: Any) -> bool:
         
 # basic utils
 def get_joiner(language):
-    if language in load_key('language_split_with_space'):
+    # 处理越南语和其他未明确支持的语言
+    if language in load_key('language_split_with_space') or language == 'vi':
         return " "
     elif language in load_key('language_split_without_space'):
         return ""
