@@ -19,7 +19,7 @@ API_URL_SPEECH = "https://api.siliconflow.cn/v1/audio/speech"
 API_URL_VOICE = "https://api.siliconflow.cn/v1/uploads/audio/voice"
 
 AUDIO_REFERS_DIR = "output/audio/refers"
-MODEL_NAME = "FunAudioLLM/CosyVoice2-0.5B"
+MODEL_NAME = "RVC-Boss/GPT-SoVITS"
 REFER_MAX_LENGTH = 90
 
 def _get_headers():
