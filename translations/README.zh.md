@@ -4,6 +4,8 @@
 
 # 连接世界每一帧
 
+<a href="https://trendshift.io/repositories/12200" target="_blank"><img src="https://trendshift.io/api/badge/repositories/12200" alt="Huanshere%2FVideoLingo | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
+
 [**English**](/README.md)｜[**简体中文**](/translations/README.zh.md)｜[**繁體中文**](/translations/README.zh-TW.md)｜[**日本語**](/translations/README.ja.md)｜[**Español**](/translations/README.es.md)｜[**Русский**](/translations/README.ru.md)｜[**Français**](/translations/README.fr.md)
 
 **QQ群：875297969**
@@ -37,20 +39,27 @@ VideoLingo 是一站式视频翻译本地化配音工具，能够一键生成 Ne
 
 与同类项目相比的优势：**绝无多行字幕，最佳的翻译质量，无缝的配音体验**
 
-## 🎥 效果演示
+## 🎥 演示
 
 <table>
 <tr>
-<td width="50%">
+<td width="33%">
 
-### 俄语翻译
+### 双语字幕
 ---
-https://github.com/user-attachments/assets/25264b5b-6931-4d39-948c-5a1e4ce42fa7
+https://github.com/user-attachments/assets/a5c3d8d1-2b29-4ba9-b0d0-25896829d951
 
 </td>
-<td width="50%">
+<td width="33%">
 
-### GPT-SoVITS配音
+### Cosy2 声音克隆
+---
+https://github.com/user-attachments/assets/e065fe4c-3694-477f-b4d6-316917df7c0a
+
+</td>
+<td width="33%">
+
+### GPT-SoVITS 配音
 ---
 https://github.com/user-attachments/assets/47d965b2-b4ab-4a0b-9d08-b49a7bf3508c
 
