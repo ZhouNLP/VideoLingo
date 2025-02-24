@@ -6,8 +6,8 @@ display_language: "zh-CN"
 # API settings
 api:
   key: 'YOUR_API_KEY'
-  base_url: 'https://api.302.ai/'
-  model: 'deepseek-coder'
+  base_url: 'https://lz2xg-gemini-balance.hf.space/v1'
+  model: 'gemini-2.0-flash-lite-preview-02-05'
 
 # Language settings, written into the prompt, can be described in natural language
 target_language: '简体中文'
@@ -55,7 +55,7 @@ pause_before_translate: false
 
 ## ======================== Dubbing Settings ======================== ##
 # TTS selection [sf_fish_tts, openai_tts, gpt_sovits, azure_tts, fish_tts, edge_tts, custom_tts]
-tts_method: 'sf_cosyvoice2'
+tts_method: 'sf_fish_tts'
 
 # SiliconFlow FishTTS
 sf_fish_tts:
@@ -67,7 +67,7 @@ sf_fish_tts:
   custom_name: ''
   voice_id: ''
   # preset, custom, dynamic
-  mode: "dynamic"
+  mode: "preset"
 
 # OpenAI TTS-1 API configuration, 302.ai API only
 openai_tts:
