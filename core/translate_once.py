@@ -31,15 +31,37 @@ def translate_lines(lines, previous_content_prompt, after_cotent_prompt, things_
             return valid_translate_result(response_data, ['1'], ['direct'])
         def valid_express(response_data):
             return valid_translate_result(response_data, ['1'], ['free'])
+      
         for retry in range(3):
-            if step_name == 'faithfulness':
-                result = ask_gpt(prompt+retry* " ", response_json=True, valid_def=valid_faith, log_title=f'translate_{step_name}')
-            elif step_name == 'expressiveness':
-                result = ask_gpt(prompt+retry* " ", response_json=True, valid_def=valid_express, log_title=f'translate_{step_name}')
-            if len(lines.split('\n')) == len(result):
-                return result
-            if retry != 2:
-                console.print(f'[yellow]⚠️ {step_name.capitalize()} translation of block {index} failed, Retry...[/yellow]')
+            try:
+                if step_name == 'faithfulness':
+                    result = ask_gpt(prompt+retry* " ", response_json=True, valid_def=valid_faith, log_title=f'translate_{step_name}')
+                elif step_name == 'expressiveness':
+                    result = ask_gpt(prompt+retry* " ", response_json=True, valid_def=valid_express, log_title=f'translate_{step_name}')
+                    
+                # 验证结果格式
+                if isinstance(result, dict):
+                    # 检查所需的键是否存在
+                    if step_name == 'faithfulness':
+                        if all('direct' in result[key] for key in result):
+                            if len(lines.split('\n')) == len(result):
+                                return result
+                    elif step_name == 'expressiveness':
+                        if all('free' in result[key] for key in result):
+                            if len(lines.split('\n')) == len(result):
+                                return result
+                                
+                if retry != 2:
+                    console.print(f'[yellow]⚠️ {step_name.capitalize()} translation of block {index} failed, Retry {retry + 1}/3...[/yellow]')
+                    time.sleep(2)  # 添加延迟避免频繁请求
+                
+            except Exception as e:
+                if retry != 2:
+                    console.print(f'[yellow]⚠️ Error in {step_name} translation: {str(e)}. Retry {retry + 1}/3...[/yellow]')
+                    time.sleep(2)
+                else:
+                    raise ValueError(f'[red]❌ {step_name.capitalize()} translation of block {index} failed after 3 retries: {str(e)}[/red]')
+                    
         raise ValueError(f'[red]❌ {step_name.capitalize()} translation of block {index} failed after 3 retries. Please check `output/gpt_log/error.json` for more details.[/red]')
 
     ## Step 1: Faithful to the Original Text
